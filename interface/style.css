@@ -1,0 +1,125 @@
+*{
+    margin: 1%;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: white;
+}
+
+
+:root{
+      --fundodiv:aqua;
+      --fundoopcao:#33d46b;
+      --fundodiv-2:#000;
+      --fundo-alerta:#C1121F;
+      ---borda:rgba(204, 204, 204, 0.897);
+}
+
+body{
+    background-color: var(--fundodiv-2);
+    align-items: center;
+    
+}
+
+#img_robotic{
+    width: 100%;
+}
+
+
+#content_principal{
+    background-color:black;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;   
+}
+#contente_principal_info{
+    padding: 10px;
+    width: 60%;
+    align-items: center;
+}
+#div_title{
+    width: 50%;
+    padding: 5px;
+    color: white;
+}
+
+#div_obj{
+   text-align: center;
+    background-color: aqua;
+    width: 50%;
+    padding: 3px;
+    justify-content: center;
+    border-radius: 3px;
+}
+
+#contente_info2{
+    padding: 10px;
+    width: 40%;
+    height: 800px;
+    align-items:center;
+    padding: 20px;
+    border-radius: 5px;
+    border: rgba(204, 204, 204, 0.897) 2px solid;
+
+}
+
+#contente_sub_info2{
+    background-color:rgba(128, 128, 128, 0.897);
+    width: 100%;
+    display: flex;
+    justify-content:center;
+}
+
+#info_taxa{
+    width: 100%;
+    margin: 10px;
+    padding: 6px;
+    background-color: red;
+    border: var(---borda) 2px solid;
+    border-radius: 2px;
+}
+
+#info_status{
+    width: 100%;
+    margin: 10px;
+    padding: 6px;
+    background-color: red;
+    border: var(---borda) 2px solid;
+    border-radius: 2px;
+}
+
+#info_log{
+    width: 100%;
+    margin: 10px;
+    padding: 6px;
+    background-color: red;
+    border: var(---borda) 2px solid;
+    border-radius: 2px;
+}
+
+#estado_da_maquina{
+    justify-content: left;
+    display: flex;
+    flex-direction: row-reverse;
+    width: 20%;
+    padding: 20px;
+}
+
+#b_desativado{
+    background-color: var(--fundo-alerta);
+    padding: 6%;
+    margin-left: 6%;
+    border-radius: 3px;
+    color: white;
+}
+
+#b_ativo{
+    background-color: var(--fundodiv);
+    padding: 6%;
+    margin-left: 3%;
+    border-radius: 3px;
+    color:black;
+}
+.magictime {
+    -webkit-animation-duration: 3s;
+    animation-duration: 3s;
+}
