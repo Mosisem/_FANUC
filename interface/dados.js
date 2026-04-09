@@ -1,47 +1,117 @@
 const API_URL = 'http://localhost:3001/events'
 
-const statusEl = document.getElementById('status')
-const outputEl = document.getElementById('output')
-const info_log = document.getElementById('info_log')
+// elementos
+const statusRunning = document.getElementById('b_ativo')
+const statusSleep = document.getElementById('b_desativado')
 
-let connected = false
-let data = null
+const taxaEl = document.getElementById('server_dd_taxa')     // AGORA: status_robo
+const statusEl = document.getElementById('server_dd_status') // status
+const logTimeEl = document.getElementById('server_dd_log')   // horário
 
+const vermelhoEl = document.querySelector('#contagem_vermelho div')
+const pretoEl = document.querySelector('#contagem_preta div')
+const prataEl = document.querySelector('#contagem_prata div')
+
+const logListEl = document.getElementById('mensagem_s')
+
+// conexão SSE
 const source = new EventSource(API_URL)
+
+// últimos 3 logs
+let lastLogs = []
+
+// horário do último evento
+function updateLastLogTime() {
+  const time = new Date().toLocaleTimeString()
+  logTimeEl.textContent = time
+}
+
+// lista de logs
+function updateLogList() {
+  logListEl.innerHTML = lastLogs
+    .map(log => `<div style="border-bottom:1px solid #ccc; padding:4px 0;">${log}</div>`)
+    .join('')
+}
 
 // conexão aberta
 source.onopen = () => {
-  connected = true
-  statusEl.textContent = 'Conectado'
-  statusEl.classList.remove('offline')
-  statusEl.classList.add('online')
+  const time = new Date().toLocaleTimeString()
 
-  console.log('[SSE] Conectado')
+  lastLogs.unshift(`[${time}] Conectado`)
+  if (lastLogs.length > 3) lastLogs.pop()
+
+  updateLastLogTime()
+  updateLogList()
 }
 
 // recebendo dados
 source.onmessage = (e) => {
   try {
-    data = JSON.parse(e.data)
+    const data = JSON.parse(e.data)
 
-    console.log('[SSE] Dados:', data)
+    console.log('Dados recebidos:', data)
 
-    outputEl.textContent = JSON.stringify(data, null, 2)
-    info_log.innerHTML = `<p>${data}</p>`
+    const time = new Date().toLocaleTimeString()
+
+    // salva log
+    lastLogs.unshift(`[${time}] ${JSON.stringify(data)}`)
+    if (lastLogs.length > 3) lastLogs.pop()
+
+    updateLastLogTime()
+    updateLogList()
+
+    // ✅ STATUS DO ROBÔ (texto)
+    const statusValue = data.status || data.machine_status || data.estado
+
+    if (statusValue !== undefined) {
+      statusEl.textContent = statusValue
+
+      if (statusValue === 'Running') {
+        statusRunning.style.background = 'green'
+        statusSleep.style.background = 'gray'
+      } else {
+        statusRunning.style.background = 'gray'
+        statusSleep.style.background = 'red'
+      }
+    }
+
+    // ✅ NOVA FUNÇÃO → mostrar status_robo na taxa
+    if (data.status_robo !== undefined) {
+      taxaEl.textContent = data.status_robo
+    }
+
+    // contagem
+    if (data.vermelho !== undefined) {
+      vermelhoEl.textContent = data.vermelho
+    }
+
+    if (data.preto !== undefined) {
+      pretoEl.textContent = data.preto
+    }
+
+    if (data.prata !== undefined) {
+      prataEl.textContent = data.prata
+    }
+
   } catch (err) {
-    console.error('Erro ao parsear JSON:', err);
-    
-  }
+    console.error(err)
 
+    const time = new Date().toLocaleTimeString()
+    lastLogs.unshift(`[${time}] Erro ao processar`)
+    if (lastLogs.length > 3) lastLogs.pop()
+
+    logTimeEl.textContent = 'Erro'
+    updateLogList()
+  }
 }
 
-
-// erro / desconexão
+// erro
 source.onerror = () => {
-  connected = false
-  statusEl.textContent = 'Desconectado'
-  statusEl.classList.remove('online')
-  statusEl.classList.add('offline')
+  const time = new Date().toLocaleTimeString()
 
-  console.warn('[SSE] Desconectado')
+  lastLogs.unshift(`[${time}] Desconectado`)
+  if (lastLogs.length > 3) lastLogs.pop()
+
+  logTimeEl.textContent = 'Erro'
+  updateLogList()
 }

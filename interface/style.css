@@ -1,7 +1,6 @@
 *{
     margin: 1%;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color: white;
 }
 
 
@@ -11,6 +10,7 @@
       --fundodiv-2:#000;
       --fundo-alerta:#C1121F;
       ---borda:rgba(204, 204, 204, 0.897);
+      ---cmd:#40ff00f1;
 }
 
 body{
@@ -33,11 +33,11 @@ body{
 }
 #contente_principal_info{
     padding: 10px;
-    width: 60%;
-    align-items: center;
+    width: 50%;
+    justify-content: center;
 }
 #div_title{
-    width: 50%;
+    width: 55%;
     padding: 5px;
     color: white;
 }
@@ -47,7 +47,7 @@ body{
     background-color: aqua;
     width: 50%;
     padding: 3px;
-    justify-content: center;
+    justify-content:right;
     border-radius: 3px;
 }
 
@@ -58,22 +58,22 @@ body{
     align-items:center;
     padding: 20px;
     border-radius: 5px;
-    border: rgba(204, 204, 204, 0.897) 2px solid;
-
+    background-color: #343a46;
 }
 
 #contente_sub_info2{
-    background-color:rgba(128, 128, 128, 0.897);
     width: 100%;
     display: flex;
     justify-content:center;
+    color: rgb(255, 255, 255);
+    text-align: center;
 }
+
 
 #info_taxa{
     width: 100%;
     margin: 10px;
     padding: 6px;
-    background-color: red;
     border: var(---borda) 2px solid;
     border-radius: 2px;
 }
@@ -82,7 +82,6 @@ body{
     width: 100%;
     margin: 10px;
     padding: 6px;
-    background-color: red;
     border: var(---borda) 2px solid;
     border-radius: 2px;
 }
@@ -91,7 +90,6 @@ body{
     width: 100%;
     margin: 10px;
     padding: 6px;
-    background-color: red;
     border: var(---borda) 2px solid;
     border-radius: 2px;
 }
@@ -123,3 +121,61 @@ body{
     -webkit-animation-duration: 3s;
     animation-duration: 3s;
 }
+
+#contagem{
+    margin-top: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#contagem_vermelho{
+    color: #000;
+    background-color:var(--fundodiv);
+    padding: 15px;
+    height: 70px;
+    text-align: center;
+    border-radius: 5px;
+    margin: 5%;
+}
+
+#contagem_preta{
+    color: #000;
+    background-color: var(--fundodiv);
+    padding: 20px;
+    width: 20%;
+    margin: 5%;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#contagem_prata{
+    color: #000;
+    background-color: var(--fundodiv);
+    padding: 20px;
+    width: 20%;
+    margin: 5%;
+    text-align: center;
+    border-radius: 5px;
+}
+
+#dados_puros{
+    margin-top: 10%;
+}
+
+#dados_puros h2{
+    color: white;
+}
+
+
+
+#cmd_dados{
+    background-color: #000;
+    border: var(---cmd) 2px solid;
+    color: var(---cmd);
+    height: 300px;
+}
+#cmd_dados hr{
+    border: var(---cmd) 1px solid;
+}
+
