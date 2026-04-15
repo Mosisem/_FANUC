@@ -134,6 +134,7 @@ body{
     background-color:var(--fundodiv);
     padding: 15px;
     height: 70px;
+    width: 20%;
     text-align: center;
     border-radius: 5px;
     margin: 5%;
